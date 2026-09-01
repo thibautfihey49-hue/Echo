@@ -1,0 +1,33 @@
+name: Build Bloom APK
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Debug APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Récupère le code
+        uses: actions/checkout@v4
+
+      - name: ☕ Configure Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: 🔨 Donne les droits à Gradle
+        run: chmod +x ./gradlew
+
+      - name: 📦 Compile l'APK Debug
+        run: ./gradlew assembleDebug
+
+      - name: ✅ Téléverse l'APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Bloom-APK-Debug
+          path: app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 30
