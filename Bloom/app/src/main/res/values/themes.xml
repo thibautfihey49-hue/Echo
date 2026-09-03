@@ -1,0 +1,5 @@
+<resources>
+    <style name="Theme.Material3.DayNight" parent="Theme.Material3.Light">
+        <item name="colorPrimary">#E75480</item>
+    </style>
+</resources>
